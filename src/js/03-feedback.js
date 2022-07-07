@@ -9,14 +9,15 @@ const load = localStorageFn.load;
 // Ссылка и слушатель на форму
 const formRef = document.querySelector('.feedback-form');
 formRef.addEventListener('input', getEmailAndMassage);
+formRef.addEventListener('submit', resetForm);
 
 // Ссылки на инпуты формы
 let email = document.querySelector('input[name="email"]');
 let message = document.querySelector('textarea[name="message"]');
-let submit = document.querySelector('button');
 
 // Функция получениея значений формы и их запись в локальное хранилище
 function getEmailAndMassage(event) {
+  event.preventDefault();
   const email = event.currentTarget.querySelector('input[name="email"]').value;
   const message = event.currentTarget.querySelector(
     'textarea[name="message"]'
@@ -26,6 +27,14 @@ function getEmailAndMassage(event) {
     message: message,
     email: email,
   });
+}
+
+// Функция очищения формы
+function resetForm(event) {
+  event.preventDefault();
+
+  console.log('Отправляем форму');
+  event.currentTarget.reset();
 }
 
 // Объявление и вызов функции возврата значений в форму
@@ -41,16 +50,4 @@ function returningEnteredValues() {
     email.value = emailValue;
     message.value = messageValue;
   }
-}
-
-// Сабмит -- слушатель
-submit.addEventListener('click', refreshForm);
-function refreshForm(event) {
-  event.preventDefault();
-  if (load('feedback-form-state') !== undefined) {
-    localStorage.removeItem('feedback-form-state');
-  }
-
-  email.value = '';
-  message.value = '';
 }
