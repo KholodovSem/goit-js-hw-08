@@ -19,4 +19,8 @@ const timeUpdate = function ({ seconds }) {
 // Метод on (Забирает тайм-код, где юзер закончил смотреть видео),
 // метод setCurrentTime(Возвращает юзера на тоже время, где он закончилы
 player.on('timeupdate', throttle(timeUpdate, 1000));
-player.setCurrentTime(load('videoplayer-current-time'));
+
+const currentPlayerTime = load('videoplayer-current-time');
+if (currentPlayerTime !== null && currentPlayerTime !== undefined) {
+  player.setCurrentTime(currentPlayerTime);
+}
