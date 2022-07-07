@@ -35,6 +35,7 @@ function resetForm(event) {
 
   console.log('Отправляем форму');
   event.currentTarget.reset();
+  localStorage.clear();
 }
 
 // Объявление и вызов функции возврата значений в форму
